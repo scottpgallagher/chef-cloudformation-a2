@@ -1,0 +1,300 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "4a209747-8f3d-418e-98ab-0a041f270d18": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 600,
+                    "y": 140
+                },
+                "z": 0,
+                "embeds": [],
+                "isassociatedwith": [
+                    "70dee654-de37-428c-b0a7-508ec7c165eb"
+                ]
+            },
+            "70dee654-de37-428c-b0a7-508ec7c165eb": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 450,
+                    "y": 140
+                },
+                "z": 0,
+                "embeds": []
+            }
+        }
+    },
+    "Parameters": {
+        "KeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+            "Type": "AWS::EC2::KeyPair::KeyName",
+            "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
+        },
+            "CustomerTag": {
+      "Description" : "Customer Tag",
+      "Type": "String"
+    },
+                "ProjectTag": {
+      "Description" : "Project Tag",
+      "Type": "String"
+    },
+                "NameTag": {
+      "Description" : "Name Tag",
+      "Type": "String"
+    },
+                "DeptTag": {
+      "Description" : "Dept Tag",
+      "Type": "String"
+    },
+                "ContactTag": {
+      "Description" : "Contact Tag",
+      "Type": "String"
+    },
+                "ApplicationTag": {
+      "Description" : "Application Tag",
+      "Type": "String"
+    },
+                    "TTLTag": {
+      "Description" : "TTL Tag",
+      "Type": "String"
+    },
+        "InstanceType": {
+            "Description": "WebServer EC2 instance type",
+            "Type": "String",
+            "Default": "m4.xlarge",
+            "AllowedValues": [
+                "t1.micro",
+                "t2.nano",
+                "t2.micro",
+                "t2.small",
+                "t2.medium",
+                "t2.large",
+                "m1.small",
+                "m1.medium",
+                "m1.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "m3.medium",
+                "m3.large",
+                "m3.xlarge",
+                "m3.2xlarge",
+                "m4.large",
+                "m4.xlarge",
+                "m4.2xlarge",
+                "m4.4xlarge",
+                "m4.10xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "c3.large",
+                "c3.xlarge",
+                "c3.2xlarge",
+                "c3.4xlarge",
+                "c3.8xlarge",
+                "c4.large",
+                "c4.xlarge",
+                "c4.2xlarge",
+                "c4.4xlarge",
+                "c4.8xlarge",
+                "g2.2xlarge",
+                "g2.8xlarge",
+                "r3.large",
+                "r3.xlarge",
+                "r3.2xlarge",
+                "r3.4xlarge",
+                "r3.8xlarge",
+                "i2.xlarge",
+                "i2.2xlarge",
+                "i2.4xlarge",
+                "i2.8xlarge",
+                "d2.xlarge",
+                "d2.2xlarge",
+                "d2.4xlarge",
+                "d2.8xlarge",
+                "hi1.4xlarge",
+                "hs1.8xlarge",
+                "cr1.8xlarge",
+                "cc2.8xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "must be a valid EC2 instance type."
+        }
+    },
+    "Resources": {
+        "AutomateSecurityGroup": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Enable SSH access via port 22",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "22",
+                        "ToPort": "22",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "9631",
+                        "ToPort": "9631",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "9631",
+                        "ToPort": "9631",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "9638",
+                        "ToPort": "9638",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "9638",
+                        "ToPort": "9638",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "9632",
+                        "ToPort": "9632",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "udp",
+                        "FromPort": "9632",
+                        "ToPort": "9632",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "80",
+                        "ToPort": "80",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "443",
+                        "ToPort": "443",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "4222",
+                        "ToPort": "4222",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "2379",
+                        "ToPort": "2380",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "9200",
+                        "ToPort": "9400",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "5432",
+                        "ToPort": "5432",
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": "7331",
+                        "ToPort": "7331",
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "70dee654-de37-428c-b0a7-508ec7c165eb"
+                }
+            }
+        },
+        "AutomateInstance": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "BlockDeviceMappings": [
+                    {
+                        "DeviceName": "/dev/sda1",
+                        "Ebs": {
+                            "VolumeSize": "50"
+                        }
+                    }
+                ],
+                "KeyName": {
+                    "Ref": "KeyName"
+                },
+                "ImageId": "ami-04b9e92b5572fa0d1",
+                "InstanceType": {
+                    "Ref": "InstanceType"
+                },
+                "Tags": [
+                    {
+                        "Key": "tag_customer",
+                        "Value": {"Ref" : "CustomerTag"}
+                    },
+                    {
+                        "Key": "tag_project",
+                        "Value": {"Ref" : "ProjectTag"}
+                    },
+                    {
+                        "Key": "tag_name",
+                        "Value": {"Ref" : "NameTag"}
+                    },
+                    {
+                        "Key": "tag_dept",
+                        "Value": {"Ref" : "DeptTag"}
+                    },
+                    {
+                        "Key": "tag_contact",
+                        "Value": {"Ref" : "ContactTag"}
+                    },
+                    {
+                        "Key": "tag_application",
+                        "Value": {"Ref" : "ApplicationTag"}
+                    },
+                    {
+                        "Key": "ttl_tag",
+                        "Value": {"Ref" : "TTLTag"}
+                    }
+                ],
+                "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
+                    "#!/bin/bash -xe\n",
+                    "yum update -y\n",
+                    "sysctl -w vm.max_map_count=262144\n",
+                    "sysctl -w vm.dirty_expire_centisecs=20000\n",
+                    "curl https://packages.chef.io/files/current/latest/chef-automate-cli/chef-automate_linux_amd64.zip |gunzip - > chef-automate && chmod +x chef-automate\n",
+                    "mv chef-automate /usr/sbin/chef-automate\n",
+                    "mkdir -p /etc/chef-automate\n",
+                    "yum install -y httpd\n"
+               ]]}},
+                "SecurityGroupIds": [
+                    {
+                        "Ref": "AutomateSecurityGroup"
+                    }
+                ]
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "4a209747-8f3d-418e-98ab-0a041f270d18"
+                }
+            }
+        }
+    }
+}
